@@ -1,6 +1,9 @@
 <?php include("topbit.php");
    
-    $find_sql = 'SELECT * FROM `game_details` ';
+    $find_sql = 'SELECT * FROM `game_details` 
+	JOIN genre ON (game_details.GenreID = genre.GenreID)
+	JOIN developer ON (game_details.DeveloperID = developer.ID)
+	';
 	$find_query = mysqli_query($dbconnect, $find_sql);
 	$find_rs = mysqli_fetch_assoc($find_query);
 	$count = mysqli_num_rows($find_query);
@@ -32,10 +35,13 @@
 					</span>
 					
 					<br />
-					
-					<?php echo $find_rs['GenreID'] ?>
+				<p>
+					<b>Genre</b>:
 					<?php echo $find_rs['Genre'] ?>
-					
+					<br />
+					<b>Developer</b>:
+					<?php echo $find_rs['DevName'] ?>
+				</p>
 				</div> <!-- end results-->
 				
 				
