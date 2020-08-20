@@ -1,0 +1,1 @@
+<? php echo $find_rs[''] ?>
