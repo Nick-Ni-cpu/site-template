@@ -24,9 +24,25 @@
 					{
 						?>
 				<!--Results go here-->
-				<div class='results'>		
-					You have results!
+				<div class='results'>
+					<span class='sub_heading'>
+						<a href='<?php echo $find_rs['URL']; ?>'>
+						 <?php echo $find_rs['Name']; ?>
+						</a>
+					</span>
+					
+					<br />
+					
+					<?php echo $find_rs['GenreID'] ?>
+					<?php echo $find_rs['Genre'] ?>
+					
 				</div> <!-- end results-->
+				
+				
+				<br />
+				
+				
+				
 				<?php
 					}  // end results 'do'
 					while
