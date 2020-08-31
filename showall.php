@@ -28,11 +28,31 @@
 						?>
 				<!--Results go here-->
 				<div class='results'>
-					<span class='sub_heading'>
-						<a href='<?php echo $find_rs['URL']; ?>'>
-						 <?php echo $find_rs['Name']; ?>
-						</a>
-					</span> - <?php echo $find_rs['Subtitle'] ?>
+				
+				<!-- Heading and sub title -->
+				
+				<div class='flex-container'>
+					<div>
+				
+						<span class='sub_heading'>
+							<a href='<?php echo $find_rs['URL']; ?>'>
+								<?php echo $find_rs['Name']; ?>
+							</a>
+						</span>
+					</div>	<!-- / Title -->
+					
+					<?php
+					
+						if($find_rs['Subtitle'] != "")
+						{
+							
+						}
+					
+					?>
+					
+					
+				</div>
+				<!-- / Heading and sub title -->
 					
 					<br />
 				<p>
