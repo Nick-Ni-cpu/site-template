@@ -1,5 +1,5 @@
 			<div class="box side">
-				<h2>Add an App |
+				<h2><a href='addentry.php'>Add an App |</a>
 				<a class='side' href='showall.php'>Show All</a></h2>
 				
 				<form class="searchform" method="post" action="name_dev.php" enctype="mutipart/form-data">
@@ -68,7 +68,7 @@
 						</div> <!-- / cost label -->
 						
 						<div>
-							<input class='adv' type='text' name='cost' size='40' value='' placeholder='$...' />
+							<input style="width:90%" class='adv' type='text' name='cost' size='40' value='' placeholder='$...' />
 						</div> <!-- / cost input box -->
 					
 					</div> <!-- / cost flexbox -->
