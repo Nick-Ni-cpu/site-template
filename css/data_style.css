@@ -279,7 +279,10 @@ select{
 	margin:auto;
 }
 
-
+.addfield{
+    width: 95%; 
+    margin-bottom: 5px;
+}
 
 
 

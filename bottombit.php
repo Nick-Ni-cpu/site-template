@@ -27,7 +27,7 @@
 				<form class='searchform' method='post' action='advanced.php' enctype='mutipart/form-data'>
 				
 					<input class="adv" type="text" name="app_name" size="30" value="" 
-					placeholder="App Nam / Title..." />
+					placeholder="App Name / Title..." />
 					
 					<input class="adv" type="text" name="dev_name" size="30" value="" 
 					placeholder="Developer..." />
