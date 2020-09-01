@@ -1,5 +1,10 @@
 <?php echo $find_rs[''] ?>
 
+$variable = mysqli_real_escape_string($dbconnect, $_POST['foo']);
+
+?>
+
+<?php
 
 <p>
 					<b>Genre</b>:
