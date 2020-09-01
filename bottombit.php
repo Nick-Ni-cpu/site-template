@@ -60,6 +60,57 @@
 					
 				</select>
 					
+					<!-- Cost -->
+					<div class="flex-container">
+					
+						<div class="adv-txt">
+							Cost&nbsp;(less&nbsp;than):
+						</div> <!-- / cost label -->
+						
+						<div>
+							<input class='adv' type='text' name='cost' size='40' value='' placeholder='$...' />
+						</div> <!-- / cost input box -->
+					
+					</div> <!-- / cost flexbox -->
+					<!-- No In App Checkbox -->
+					<input class='adv-txt' type='checkbox' name='in_app' value='0' />No In App Purchase
+					<!-- Rating -->
+					<div class='flex-container'>
+						<div class='adv-txt'>
+							Rating:
+						</div> <!--  / rating label -->
+						
+						<div>
+							<select class="search adv" name="rate_more_less">
+								<option value="" disabled>Choose...</option>
+								<option value="at least">At Least</option>
+								<option value="at most">At Most</option>
+							</select>
+						</div> <!--  / rating drop down -->
+						
+						<div>
+							<input class="adv" type='text' name='rating' size='2' value='' placeholder='' />
+						</div> <!--  / rating amount -->
+					</div>
+					<!-- Age -->
+					<div class='flex-container'>
+						<div class='adv-txt'>
+							Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div> <!--  / age label -->
+						
+						<div>
+							<select class="search adv" name="age_more_less">
+								<option value="" disabled>Choose...</option>
+								<option value="at least">At Least</option>
+								<option value="at most">At Most</option>
+							</select>
+						</div> <!--  / age drop down -->
+						
+						<div>
+							<input class="adv" type='text' name='age' size='2' value='' placeholder='' />
+						</div> <!--  / rating amount -->
+					</div>	
+					<!-- Search Button is below-->
 					<input class="submit advanced-button" type='submit' name='advanced' value="Search &nbsp; &#xf002;" />
 
 				</form>

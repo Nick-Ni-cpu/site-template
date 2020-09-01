@@ -215,6 +215,10 @@ input{
 	box-sizing: border-box;
 }
 
+select{
+	height:40px;
+}
+
 .free{
 	width:245px;
 	border-radius:5px;
@@ -241,6 +245,11 @@ input{
 	margin-bottom:5px;
 }
 
-
+.adv-txt{
+	vertical-align:middle;
+	margin:auto;
+	margin-right:10px;
+	margin-left:10px;
+}
 
 
