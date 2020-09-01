@@ -16,6 +16,38 @@
 					
 				</form>
 				
+				<br />
+				<hr />
+				<br />
+				
+				<div class='advanced-frame'>
+				
+				<h2>Advanced Search</h2>
+				
+				<form class='searchform' method='post' action='advanced.php' enctype='mutipart/form-data'>
+				
+					<input class="adv" type="text" name="app_name" size="30" value="" 
+					placeholder="App Nam / Title..." />
+					
+					<input class="adv" type="text" name="dev_name" size="30" value="" 
+					placeholder="Developer..." />
+					
+				<input class="submit advanced-button" type='submit' name='advanced' value="Search &nbsp; &#xf002;" />
+				
+				<!-- Genre Dropdown-->
+				
+				<select name='genre'>
+				<!-- get options from database -->
+					<?php 
+					
+					?>
+					
+				</select>
+				
+				</form>
+				
+				</div> <!-- / advanced frame -->
+				
 			</div> <!-- / side bar -->
 			
 			<div class="box footer">
