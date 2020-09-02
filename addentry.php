@@ -16,13 +16,41 @@ $age ="";
 $rating ="";
 $rate_count ="";
 $cost ="";
-$inapp = 1;
+$in_app = 1;
 $description ="";
 
 $has_errors ="no";
 
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
+	
+	// Get values from form...
+	$app_name = mysqli_real_escape_string($dbconnect, $_POST['app_name']);
+	$subtitle = mysqli_real_escape_string($dbconnect, $_POST['subtitle']);
+	$url = mysqli_real_escape_string($dbconnect, $_POST['url']);
+	
+	$genreID = mysqli_real_escape_string($dbconnect, $_POST['genre']);
+	
+	// if GenreID, is not blank, get genre so that genre box does not lose its value if there are errors
+	if ($genreID != "") {
+		$genreitem_sql = "SELECT * FROM `genre` WHERE `GenreID` =$genreID";
+		$genreitem_query = mysqli_query($dbconnect, $genreitem_sql);
+		$genreitem_rs = mysqli_fetch_assoc($genreitem_query);
+		
+		$genre = $genreitem_rs['Genre'];
+		
+	} // End genreID if
+	
+	$dev_name = mysqli_real_escape_string($dbconnect, $_POST['dev_name']);
+	$age = mysqli_real_escape_string($dbconnect, $_POST['age']);
+	$rating = mysqli_real_escape_string($dbconnect, $_POST['rating']);
+	$rate_count = mysqli_real_escape_string($dbconnect, $_POST['count']);
+	$cost = mysqli_real_escape_string($dbconnect, $_POST['price']);
+	$in_app = mysqli_real_escape_string($dbconnect, $_POST['in_app']);
+	$description = mysqli_real_escape_string($dbconnect, $_POST['description']);
+	
+	
+	
 	echo "You pushed the button";
 } // end of button submitted code
 
@@ -47,9 +75,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 					placeholder="URL (Required)" />
 				<!-- Genre dropdown (Required) -->
 				<select class="adv" name="genre" >
-					<option value="" selected>Genre (Choose something)....</option>
+					<!-- first / selected option -->
+					
+					<?php 
+					if ($genreID == ""){
+						?>
+						<option value="" selected>Genre (Choose something)....</option>
+					<?php
+					}
+					else{
+						?>
+						<option value="<?php echo $genreID; ?>" selected><?php echo $genre; ?></option>
+					<?php
+					}
+					?>
+					
+					
 				
-				<!-- get options from database -->
+					<!-- get options from database -->
 				<?php
 				do{
 							?>
