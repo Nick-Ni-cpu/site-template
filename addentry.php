@@ -64,11 +64,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	 }
 	
 	// Check URL is not blank
-	 if($url == ""){
-		$has_errors = 'yes';
-		$url_error = 'error-text';
-		$url_field = 'form-error';
-	 }
+	$url = filter_var($url, FILTER_SANITIZE_URL);
+	
+	if(filter_var($url, FILTER_VALIDATE_URL)== false){
+		$has_errors = "yes";
+		$url_error = "error-text";
+		$url_field = "form-error";
+	}
+	
+	
+	
 	 // Check genre is not blank
 	 if($genreID == ""){
 		$has_errors = 'yes';
@@ -82,7 +87,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$dev_field = 'form-error';
 	 }
 	
-	
+	// check description is not blank / 'Description required'
+    
+	if ($description == "" || $description == " Please enter a description ") {
+		$has_errors = "yes";
+		$description_error = "error-text";
+		$description_field = "form-error";
+		$description = "";
+		}
 	
 	
 	// if there are no errors...
@@ -247,7 +259,10 @@ AND `Rating count` =$rate_count";
 				
 				<br />
 				<!-- Description text area -->
-				<textarea class="addfield <?php echo $description_field ?>" name="description" placeholder="Description...." rows="6"> <?php echo $description; ?> </textarea>	
+				<div class="<?php echo $description_error; ?>">
+					Please fill in the "Description" field
+				</div>
+				<textarea class="addfield <?php echo $description_field; ?>" name="description" placeholder="<?php echo $description; ?>" rows="6"> <?php echo $description; ?> </textarea>	
 				
 				<!-- Submit Button -->
 				<p>
