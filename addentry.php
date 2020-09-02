@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	if ($has_errors == "no"){
 	
 	// Go to success page...
+	header("Location: add_success.php");
 	
 	// get developer ID if it exists...
 	$dev_sql = "SELECT * FROM `developer` WHERE `DevName` LIKE '$dev_name'";
@@ -65,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	
 	// if developer not already in developer table, add them and get the 'new' developerID
 	if($dev_count > 0){
-		$developerID = $dev_rs['DeveloperID'];
+		$developerID = $dev_rs['ID'];
 	}
 	else{
 		$add_dev_sql = "INSERT INTO `games`.`developer` (`ID`, `DevName`) VALUES (NULL, '$dev_name');";
@@ -76,9 +77,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$newdev_query = mysqli_query($dbconnect, $newdev_sql);
 		$newdev_rs = mysqli_fetch_assoc($newdev_query);
 		
-		$developerID = $newdev_rs['DeveloperID'];
+		$developerID = $newdev_rs['ID'];
 	}
 	// Add entry to database
+	$addentry_sql = "INSERT INTO `games`.`game_details` (`ID`, `Name`, `Subtitle`, `URL`, `Description`, `GenreID`, `DeveloperID`, `Age`, `User Rating`, `Rating count`, `Price`, `In App`) 
+	VALUES (NULL, '$app_name', '$subtitle', '$url', '$description', $genreID, $developerID, $age, $rating, $rate_count, $cost, $in_app);";
+	$addentry_query = mysqli_query($dbconnect, $addentry_sql);
+	
 	
 	} // end of 'no errors' if
 	
