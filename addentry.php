@@ -22,9 +22,11 @@ $description ="Please enter a description";
 $has_errors ="no";
 
 // set up error field colours / visibility (no errors at first)
-$app_error = $url_error = $dev_error = $description_error = $genre_error = "no-error";
+$app_error = $url_error = $dev_error = $description_error = $genre_error = $age_error = $rating_error = $count_error = "no-error";
 
-$app_field = $url_field = $dev_field = $description_field = $genre_field = "form-ok";
+$app_field = $url_field = $dev_field = $description_field = $genre_field = $age_field = $rating_field = $count_field =  "form-ok";
+
+$age_message = $cost_message ="";
 
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -87,6 +89,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$dev_field = 'form-error';
 	 }
 	
+	// check age is an integer, it is blank, set it to zero
+	if ($age == "" || $age == "0"){
+		$age = 0;
+		$age_message = "The age has been set to 0 (ie: all ages)";
+		$age_error = "defaulted";
+	}
+	
+	// check that age is a number that is more than 0
+	else if (!ctype_digit($age) || $age < 0){
+		$age_message = "Please enter an integer that is 0 or more";
+		$has_errors = "yes";
+		$age_error = "error-text";
+		$age_field = "form-error";
+	}
+	
+	// check cost is an integer, it is blank, set it to zero
+	if ($cost == "" || $cost == "0"){
+		$cost = 0;
+		$cost_message = "The cost has been set to 0 (ie: all ages)";
+		$cost_error = "defaulted";
+	}
+	
+	// check that cost is a number that is more than 0
+	else if (!ctype_digit($cost) || $cost < 0){
+		$cost_message = "Please enter an integer that is 0 or more";
+		$has_errors = "yes";
+		$cost_error = "error-text";
+		$cost_field = "form-error";
+	}	
+	
+	
+	
+	
+	
+	
+	
 	// check description is not blank / 'Description required'
     
 	if ($description == "" || $description == " Please enter a description ") {
@@ -95,6 +133,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$description_field = "form-error";
 		$description = "";
 		}
+	
+	// check rating is a decimal between 0 and 5
+	if (!is_numeric($rating) || $rating < 0 || $rating >5){
+		$has_errors = "yes";
+		$rating_error = "error-text";
+		$rating_field = "form-error";
+	}
+	
+	// check number of ratings is an integer that is more than 0
+	if(!ctype_digit($rate_count) || $rate_count < 1){
+		$has_errors = "yes";
+		$count_error = "error-text";
+		$count_field = "form-error";
+	}
+	
 	
 	
 	// if there are no errors...
@@ -223,19 +276,41 @@ AND `Rating count` =$rate_count";
 				</div>
 				<input class='addfield <?php echo $dev_field ?>' type="text" name="dev_name" size="40" value="<?php echo $dev_name; ?>" 
 					placeholder="Developer Name (Required)..."  />
+					
+					
 				<!-- Age (set to 0 if left blank) -->
-				<input class='addfield' type="text" name="age" size="40" value="<?php echo $age; ?>" 
-					placeholder="Age (0 for all)" />
-				<!-- Rating (Number between 0 - 5, 1 dp) -->
-				<div>
-					<input class='addfield' type = "number" name="rating" value="<?php echo $rating; ?>" step="0.1" min=0 max=5 placeholder="Rating (0-5)"  />
+				<div class="<?php echo $age_error; ?>">
+					<?php echo $age_message; ?>
 				</div>
+				<input class='addfield <?php echo $age_field; ?>' type="text" name="age" size="40" value="<?php echo $age; ?>" 
+					placeholder="Age (0 for all)" />
+					
+					
+				<!-- Rating (Number between 0 - 5, 1 dp) -->
+				<div class="<?php echo $rating_error; ?>">
+					Please fill in the "Rating" field
+				</div>
+				<div>
+					<input class='addfield <?php echo $rating_field ?>' type = "number" name="rating" value="<?php echo $rating; ?>" step="0.1" min=0 max=5 placeholder="Rating (0-5)"  />
+				</div>
+				
+				
 				<!-- # of ratings (Integer more than 0) -->
+				<div class="<?php echo $count_error; ?>">
+					Please fill in the "Count" field
+				</div>
 				<input class="addfield <?php echo $count_field; ?>" type="text" name="count" value="<?php echo $rate_count; ?>"  placeholder="# of Ratings" />
+				
+				
 				<!-- Cost (Decimal 2dp, must be more than 0) -->
-				<input class="addfield <?php echo $age_field; ?>" type="text" name="price" value="<?php echo $cost; ?>"  placeholder="Cost (number only)" />
+				<div class="<?php echo $cost_error; ?>">
+					<?php echo $cost_message; ?>
+				</div>
+				<input class="addfield <?php echo $cost_field; ?>" type="text" name="price" value="<?php echo $cost; ?>"  placeholder="Cost (number only)" />
 				
 				<br /><br />
+				
+				
 				<!-- In App Purchase radio buttons -->
 				<div>
 					<b>In App Purchase: </b>
@@ -258,11 +333,14 @@ AND `Rating count` =$rate_count";
 				</div>
 				
 				<br />
+				
+				
 				<!-- Description text area -->
 				<div class="<?php echo $description_error; ?>">
 					Please fill in the "Description" field
 				</div>
 				<textarea class="addfield <?php echo $description_field; ?>" name="description" placeholder="<?php echo $description; ?>" rows="6"> <?php echo $description; ?> </textarea>	
+				
 				
 				<!-- Submit Button -->
 				<p>
