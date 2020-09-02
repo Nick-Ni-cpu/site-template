@@ -1,6 +1,16 @@
-<?php include("topbit.php") 
+<?php include("topbit.php"); 
 
+// retrieves information...
 
+	$ID = $_SESSION['ID'];
+    $find_sql = "SELECT * FROM `game_details` 
+	JOIN genre ON (game_details.GenreID = genre.GenreID)
+	JOIN developer ON (game_details.DeveloperID = developer.ID)
+    WHERE `ID` = '$ID'
+    ";
+    $find_query = mysqli_query($dbconnect, $find_sql);
+    $find_rs = mysqli_fetch_assoc($find_query);
+    $count = mysqli_num_rows($find_query);
 
 
 
@@ -9,6 +19,10 @@
 				<h2>Congratulations</h2>
 				
 				<p>You have added a game to the database.</p>
+				
+				<?php
+				include("results.php");
+				?>
 				
 			</div> <!-- / main -->
 			

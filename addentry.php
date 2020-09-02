@@ -17,9 +17,14 @@ $rating ="";
 $rate_count ="";
 $cost ="";
 $in_app = 1;
-$description ="";
+$description ="Please enter a description";
 
 $has_errors ="no";
+
+// set up error field colours / visibility (no errors at first)
+$app_error = $url_error = $dev_error = $description_error = $genre_error = "no-error";
+
+$app_field = $url_field = $dev_field = $description_field = $genre_field = "form-ok";
 
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -50,6 +55,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	$description = mysqli_real_escape_string($dbconnect, $_POST['description']);
 	
 	// error checking will go here...
+	
+	 // Check App Name is not blank
+	 if($app_name == ""){
+		$has_errors = 'yes';
+		$app_error = 'error-text';
+		$app_field = 'form-error';
+	 }
+	
+	// Check URL is not blank
+	 if($url == ""){
+		$has_errors = 'yes';
+		$url_error = 'error-text';
+		$url_field = 'form-error';
+	 }
+	 // Check genre is not blank
+	 if($genreID == ""){
+		$has_errors = 'yes';
+		$genre_error = 'error-text';
+		$genre_field = 'form-error';
+	 }
+	 // Check developer is not blank
+	 if($dev_name == ""){
+		$has_errors = 'yes';
+		$dev_error = 'error-text';
+		$dev_field = 'form-error';
+	 }
+	
+	
+	
 	
 	// if there are no errors...
 	if ($has_errors == "no"){
@@ -84,10 +118,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	VALUES (NULL, '$app_name', '$subtitle', '$url', '$description', $genreID, $developerID, $age, $rating, $rate_count, $cost, $in_app);";
 	$addentry_query = mysqli_query($dbconnect, $addentry_sql);
 	
+	// Get ID for next page
+	$getid_sql = "SELECT * FROM `game_details` 
+WHERE `Name` LIKE '$app_name'
+AND `Subtitle` LIKE '$subtitle'
+AND `URL` LIKE '$url'
+AND `GenreID` = $genreID
+AND `DeveloperID` = $developerID
+AND `User Rating` = $rating
+AND `Price` = $cost
+AND `In App` = $in_app
+AND `Age` = $age
+AND `Rating count` =$rate_count";
+
+	$getid_query = mysqli_query($dbconnect, $getid_sql);
+	$getid_rs = mysqli_fetch_assoc($getid_query);
+	
+	$ID = $getid_rs['ID'];
+	$_SESSION['ID'] = $ID;
+	
 	
 	} // end of 'no errors' if
 	
-	echo "You pushed the button";
 } // end of button submitted code
 
 
@@ -101,16 +153,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 				
 				<!-- App Name (Required) -->
-				<input class='addfield' type="text" name="app_name" value="<?php echo $app_name; ?>" 
+				<div class="<?php echo $app_error; ?>">
+					Please fill in the "App Name" field
+				</div>
+				<input class='addfield <?php echo $app_field; ?>' type="text" name="app_name" value="<?php echo $app_name; ?>" 
 					placeholder="App Name (required)..."  />
 				<!-- Subtitle (Optional) -->
 				<input class='addfield' type="text" name="subtitle" size="40" value="<?php echo $subtitle; ?>" 
 					placeholder="Subtitle (Optional)..." />
 				<!-- URL (Required, must start http://) -->
+				<div class="<?php echo $url_error; ?>">
+					Please fill in the "URL" field
+				</div>
 				<input class="addfield <?php echo $url_field ?>" type="text" name="url" size="40" value="<?php echo $url; ?>" 
 					placeholder="URL (Required)" />
 				<!-- Genre dropdown (Required) -->
-				<select class="adv" name="genre" >
+				<div class="<?php echo $genre_error; ?>">
+					Please fill in the "Genre" field
+				</div>
+				<select class="adv <?php echo $genre_field; ?>" name="genre" >
 					<!-- first / selected option -->
 					
 					<?php 
@@ -145,6 +206,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				
 				</select>
 				<!-- Developer Name (Required) -->
+				<div class="<?php echo $dev_error; ?>">
+					Please fill in the "Developer" field
+				</div>
 				<input class='addfield <?php echo $dev_field ?>' type="text" name="dev_name" size="40" value="<?php echo $dev_name; ?>" 
 					placeholder="Developer Name (Required)..."  />
 				<!-- Age (set to 0 if left blank) -->
