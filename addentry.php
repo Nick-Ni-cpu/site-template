@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 	
 	// check that cost is a number that is more than 0
-	else if (!ctype_digit($cost) || $cost < 0){
+	else if (!is_numeric($cost) || $cost < 0){
 		$cost_message = "Please enter an integer that is 0 or more";
 		$has_errors = "yes";
 		$cost_error = "error-text";
@@ -291,7 +291,7 @@ AND `Rating count` =$rate_count";
 					Please fill in the "Rating" field
 				</div>
 				<div>
-					<input class='addfield <?php echo $rating_field ?>' type = "number" name="rating" value="<?php echo $rating; ?>" step="0.1" min=0 max=5 placeholder="Rating (0-5)"  />
+					<input class='addfield <?php echo $rating_field ?>' type = "text" name="rating" value="<?php echo $rating; ?>" step="0.1" min=0 max=5 placeholder="Rating (0-5)"  />
 				</div>
 				
 				
@@ -339,7 +339,7 @@ AND `Rating count` =$rate_count";
 				<div class="<?php echo $description_error; ?>">
 					Please fill in the "Description" field
 				</div>
-				<textarea class="addfield <?php echo $description_field; ?>" name="description" placeholder="<?php echo $description; ?>" rows="6"> <?php echo $description; ?> </textarea>	
+				<textarea class="addfield <?php echo $description_field; ?>" name="description"  rows="6"> <?php echo $description; ?> </textarea>	
 				
 				
 				<!-- Submit Button -->
